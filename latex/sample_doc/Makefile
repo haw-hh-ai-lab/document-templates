@@ -14,11 +14,11 @@ pdf: $(MASTER).pdf
 $(MASTER).pdf: $(MASTER).toc $(MASTER).aux $(MASTER).bbl
 	pdflatex $(MASTER).tex
 
-$(MASTER).toc $(MASTER).aux: $(MASTER).tex chapters/*.tex chapters/*.aux
+$(MASTER).toc $(MASTER).aux: $(MASTER).tex chapters/*.tex
 	pdflatex $(MASTER).tex
 	pdflatex $(MASTER).tex
 
-%.bbl: %.aux chapters/*.aux bibliography/references.bib
+%.bbl: %.aux bibliography/references.bib
 	bibtex $*
  
 clean:
