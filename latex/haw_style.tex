@@ -1,0 +1,187 @@
+\documentclass[%
+   pdftex,%
+   a4paper,%                                            % DIN A4
+   oneside,%                                            % einseitiger Druck
+   headsepline,%                                        % Strich unter der Kopfzeile
+   12pt,%                                               % 12pt Schriftgröße
+]{report}
+%---------------------------------------------------------------------------------------------------
+
+\usepackage{hawhhcs}
+
+\hawtyp{Technical Report} % default: 'Laborbericht'
+%\hawtyp{Masterarbeit} % default: 'Laborbericht'
+\hawprof{Hein Mück}
+\hawkoprof{Erna Klein}
+
+\hawauthor{Lutz Behnke}
+
+% Titel für Deckblatt
+\hawtitel{HAW Style (\texttt{haw.sty})}
+%\hawtitle{Cooperative Storage: Weaknesses and Countermeasures}
+
+% Titel für Zusammenfassungsseiten (Abstract) (Deutsch und Englisch)
+%\hawzftitel{Kooperativer Speicher: Schwächen und Gegenmaßnahmen}
+%\hawzftitle{Cooperative Storage: Weaknesses and Countermeasures}
+
+\hawstichworte{Netzwerk Persistenz Storage}
+\hawkeywords{Network Persistence Storage}
+
+% Zusammenfassungsseite - Zusammenfassung(de)
+\hawzusammenfassung{(none)}
+
+% Zusammenfassungsseite - Zusammenfassung(Abstract)(en)
+\hawabstract{(none)}%Place the english abstract here
+
+% Titeldruck: farbig mit Logo / ohne Logo
+\hawlogo{true}  %% true = farbig; false = ausdruck (ohne balken und logo)
+
+\newcommand{\lcmd}[1]{$\backslash$\texttt{#1}}
+\newcommand{\website}[1]{\htmladdnormallink{#1}{#1}}
+
+\begin{document}
+
+\maketitle
+
+{\parskip=0mm \tableofcontents}
+%\tableofcontents
+
+\chapter{Basispaket}
+\label{cha:base}
+
+der \texttt{haw}-Style ist für alle Fakultäten der Hochschule für
+Angewandte Wissenschaften Hamburg (HAW) geeignet und wird für durch Styles
+erweitert die für die einzelnen Departments zugeschnitten sind.
+
+Das Paket versucht die Vorgaben an Corporate Identity der HAW
+umzusetzen. In der Weiterentwicklung werden Änderungen an dieser
+Nachgeführt. 
+
+Das Paket ist für eine Benutzung mit pdf\LaTeX\xspace optimiert. Es mag sein
+das auch eine Verarbeitung der Quellen zu \texttt{dvi} möglich ist,
+aber diese Form wird nicht unterstützt. Hinweise zur Behebung von
+Fehlern werden aber dennoch gerne entgegengenommen.
+
+\section{Vorbereitung}
+\label{sec:base:prep}
+
+Zur Verwendung dieses Styles ist ein korrekt installiertes Koma-Script Paket
+notwendig. Das Koma-Script Paket dient dazu eine Reihe von kleinen Amerikanismen aus
+dem Layout von Seite und dem Aufbau von Dokumenten-Strukturen auszumerzen und generell
+das Schreiben von Dokumenten nach europäischen oder deutschen Vorstellungen zu erleichtern.
+
+Das Style-Paket kann über das \emph{Comprehensive Tex Archive Network} (CTAN) bezogen werden.
+(\website{ftp://dante.ctan.org/tex-archive/macros/latex/contrib/koma-script}).
+
+\section{Für Autoren}
+\label{sec:base:authors}
+
+Der \texttt{haw}-Style bietet ein paar Befehle um Dokumente gemäß des
+CI zu formatieren. Diese müssen in der Präambel erscheinen. Mit dem
+Befehl \lcmd{maketitle} werden ein Deckblatt und eine Seite mit
+deutscher und optionaler englischer Zusammenfassung erzeugt.
+
+\begin{description}
+\item[\lcmd{hawabstract}] Englische Zusammenfassung (Abstract) für Zusammenfassungsseite
+\item[\lcmd{hawauthor}] Author des Dokumentes
+\item[\lcmd{hawdatum}] Datum das auf dem Deckblatt angegeben
+  wird. Standardvorgabe ist das momentane datum (\lcmd{today})
+\item[\lcmd{hawemail}] eMail Adresse des Authors
+\item[\lcmd{hawkeywords}] Englische Stichworte für die Zusammenfassung
+\item[\lcmd{hawkooperation}]
+\item[\lcmd{hawkoprof}] Kodozent/zweiter Prüfer. Der Kodozent wird nur angezeigt wenn auch ein Dozent
+  angegeben ist.
+\item[\lcmd{hawlogo}] Wenn auf \texttt{false} gesetzt, wird kein Logo
+  und keine farbige Unterlegung des Deckblattes mitgedruckt. Dies ist
+  für einen Ausdruck auf einen Deck-Karton mit Briefkopf
+  vorgesehen. Wenn auf \texttt{true} gesetzt werden die Elemente
+  eingefügt, für den Ausdruck auf Normalpapier oder elektronische
+  Verteilung. Standardvorgabe ist false. 
+\item[\lcmd{hawort}] Ort in dem das Dokument veröffentlicht
+  wurde. Standardvorgabe ist Hamburg.
+\item[\lcmd{hawprof}] Betreuender Dozent. Wenn
+  nicht angegeben, erscheint kein entsprechender Hinweis auf dem
+  Deckblatt. 
+\item[\lcmd{hawstichworte}] Deutsche Stichworte für die Zusammenfassung
+\item[\lcmd{hawtitel}] Titel des Dokumentes auf dem Deckblatt
+\item[\lcmd{hawtyp}] legt den Typ des Dokumentes fest. Dieser Typ ist
+  beliebig und erscheint über den Titel des Dokumentes auf dem
+  Deckblatt. Wenn der Typ nicht gesetz wird, so wird standardmäßig
+  ``Laborbericht'' eingefügt.
+
+  Normalerweise wird auf der zweiten Seite, der Author, der Titel, die
+  Zusammenfassung des Dokumentes und eine Liste von Schlüsselworten in
+  Deutsch eingefügt.  Für folgende Typen weicht die Darstellung ab:
+  \begin{description}
+  \item[Masterarbeit, Diplomarbeit, Bachelorarbeit] Die Informationen
+    der Titelseite sind auf die erste und zweite Seite, gemäß der 
+    Vorgabe des Prüfungsausschusses verteilt. Der Hinweis auf die Hochschule 
+    auf dem Deckblatt und der Zusammenfassungsblock auf der dritten Seite
+    wird zusätzlich auch in Englisch eingefügt.
+  \end{description}
+\item[\lcmd{hawzftitel}] Deutscher Titel für die
+  Zusammenfassungseite. Standardvorgabe ist der deutsche Titel des
+  Dokumentes. Auch hier ist der geringe Unterschied zur englischen
+  Variante zu beachten.
+\item[\lcmd{hawzftitle}]  Englischer Titel für die
+  Zusammenfassungseite. Hier ist der geringe Unterschied zur
+  deutschen Variante zu beachten.
+\item[\lcmd{hawzusammenfassung}] Deutsche Zusammenfassung (Abstract) für 
+  Zusammenfassungsseite
+\item[\lcmd{hawkooperation}] Name einer eventuellen Firma oder Organisation
+  mit der bei der Erstellung der Arbeit zusammengearbeitet wurde.
+\end{description}
+
+Für die Erstellung der Abschlussarbeiten gibt es zusätzlich den Befehl
+\lcmd{hawversicherung}, der in jeder Arbeit zu Versicherung, das die
+Inhalte des Dokument eine Eigenleistung darstellen, enthalten sein muß. 
+
+\section{Für Gurus}
+\label{sec:base:guru}
+
+Nach Definition der \TeX\ User Group (TUG) ist ein \TeX-Guru jemand den
+alle fragen wenn ihr Dokument nicht so aussieht wie sie sich das
+vorgestellt haben. Um die Arbeit der Authoren zu vereinfachen, sollte
+es für jedes Department einen eigenen Zusatzstyle geben, in dem die
+lokalen Einstellungen für Department- und Fakultätsnamen angegeben
+sind, und so nicht von jedem Authoren in jedem Dokument erneut korrekt
+angegeben werden müssen. Außerdem bietet ein Departmet-spezifischer
+Style die Möglichkeit häufig benötigte Phrasen und Abkürzungen als
+Befehle zu definieren, sowie Spezial-Pakete zu laden.
+
+\begin{description}
+\item[\lcmd{hawEdepartment}]
+\item[\lcmd{hawEfaculty}]
+\item[\lcmd{hawdepartment}]
+\item[\lcmd{hawfachbereich}]
+\item[\lcmd{hawstudiengang}]
+\item[\lcmd{hawstudienrichtung}]
+\end{description}
+
+
+\chapter{Departments}
+\label{cha:depts}
+
+\section{Informatik (\texttt{hawhhcs.sty})}
+\label{sec:depts:cs}
+
+\appendix
+
+
+%\bibliographystyle{dinat}
+%\bibliography{references}
+
+%\newpage
+%\hawversicherung
+
+\newpage
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+
+

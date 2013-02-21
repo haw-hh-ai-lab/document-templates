@@ -1,0 +1,105 @@
+\documentclass[%
+   pdftex,%
+   a4paper,%                                            % DIN A4
+   oneside,%                                            % einseitiger Druck
+   headsepline,%                                        % Strich unter der Kopfzeile
+   12pt,%                                               % 12pt Schriftgröße
+]{report}
+%---------------------------------------------------------------------------------------------------
+%\documentclass[%
+%  BCOR5mm,%                                            % Bindungskorrektur
+%  pagesize,%                                           % flexible Auswahl des Papierformats
+%  halfparskip,%                                        % Europäischer Satz: Abstand zwischen Absätzen
+%  bibtotoc,%                                           % Literaturverzeichnis im Inhaltsverzeichnis
+%]{scrreprt}                                            % KOMA-Scriptklasse Report
+%---------------------------------------------------------------------------------------------------
+
+\usepackage{hawhhcs}
+
+\hawtyp{Masterarbeit} % default: 'Laborbericht'
+
+\hawauthor{Lutz Behnke}
+
+% Titel für Deckblatt
+\hawtitel{Kooperativer Speicher: Schwächen und Gegenmaßnahmen}
+%\hawtitle{Cooperative Storage: Weaknesses and Countermeasures}
+
+% Betreuer
+\hawprof{Prof.\ Dr.\ Kai v.\ Luck}
+\hawkoprof{Prof.\ Dr.-Ing.\ Martin Hübner}
+
+% Kooperation mit externer Stelle
+\hawkooperation{catWorkX GmbH}
+
+% Ort und Datum
+\hawdatum{\today} % default: \today
+\hawort{Hamburg} % default: 'Hamburg'
+
+% Titel für Zusammenfassungsseiten (Abstract) (Deutsch und Englisch)
+\hawzftitel{Entwicklung eines E-Payment-Systems auf Basis mobiler Endgeräte}
+\hawzftitle{Development of an ePayment-System based on mobile devices}
+
+\hawstichworte{Netzwerk Persistenz Storage}
+\hawkeywords{Network Persistence Storage}
+
+% Zusammenfassungsseite - Zusammenfassung(de)
+\hawzusammenfassung{In mehreren Bereichen der
+  IT-Technik sind heute Speichersysteme nicht mehr geeignet die
+  Anforderungen an Flexibilität, Skalierbarkeit und Stabilität gegen
+  Fehler zu erfüllen. Kooperative Speicher scheinen ein Ausweg aus der
+  Konfigurations-Falle die sich aus immer komplexeren Lösungen
+  ergibt. Im folgenden wird ein Ansatz, der zukünftig der Gegenstand der
+  Masterarbeit des Authors werden soll, in Kontext gestellt und notwendige
+  Arbeiten und Untersuchungen diskutiert.}
+
+% Zusammenfassungsseite - Zusammenfassung(Abstract)(en)
+\hawabstract{(none)}%Place the english abstract here
+
+% Titeldruck: farbig mit Logo / ohne Logo
+\hawlogo{true}  %% true = farbig; false = ausdruck (ohne balken und logo)
+
+\begin{document}
+\pagenumbering{roman}
+\maketitle
+
+{\parskip=0mm \tableofcontents}
+\pagenumbering{arabic}
+
+\chapter{In the beginning}
+
+\section{Einleitung}
+\label{sec:intro}
+
+\subsection{Das Problem}
+\label{ssec:intro:problem}
+
+Aus einer Reihe von Bereichen der IT kommen heute Forderungen nach
+verbesserten Storage-Systemen. Vor allem Konzepte wie \emph{Ubiqutous
+Computing} mit seiner Vielzahl von allgegenwärtigen intelligenten
+Geräten, \emph{Grid Computing} mit domänenübergreifenden
+Anwendungen und \emph{Cluster Computing} mit einer enormen Anzahl an
+Rechner-Knoten verlangen nach Verbesserungen bei
+
+\begin{itemize}
+\item Ad-Hoc Konfiguration/Discovery
+\item Skalierbarkeit
+\item (scheinbarer) Stabilität
+\item Organisatorische Transparenz
+\end{itemize}
+
+\citep{Bell76}
+
+\bibliographystyle{dinat}
+\bibliography{bibliography/references}
+
+\hawversicherung
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+
+

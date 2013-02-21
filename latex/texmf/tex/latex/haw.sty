@@ -1,0 +1,283 @@
+% haw.sty provides a title page layout used by the Hochschule f\"ur angewandte
+% Wissenschaften Hamburg (University of Applied Sciences Hamburg).
+%
+% written by Dirk Jagdmann <doj@cubic.org> with ideas from Michael Knop
+% extended by Lutz Behnke <lutz.behnke@gmx.de>
+%
+% the mandatory layout is available in Word Format here:
+% http://users.etech.haw-hamburg.de/users/pruefungsausschuss/
+%
+% 1.3
+%  - Hinweise auf nichtgesetzte Felder
+%  - 2. Titelseite für Abschlußarbeiten
+% 1.2
+%  - Wenn nicht durch \hawzftitel überschrieben ist \hawtitel Default für 
+%    deutschen Titel in Zusammenfassung
+%  - Schalter für Diplomarbeits-Infos auf 'Masterarbeit' und 'Bachelorarbeit' 
+%    erweitert
+% 1.1
+%  - Zentrierung auf Titelseite korrigiert
+%  - Englische Informationen nur im Typ 'Diplomarbeit'
+%  - standard \maketitle stellt Deckblatt und Zusammenfassung dar
+%
+% Version 1.0
+
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{haw}[2006/02/21 Title Layout of HAW Hamburg]
+
+\RequirePackage{color}
+\RequirePackage{ifthen}
+\RequirePackage[absolute]{textpos} % placing boxes at absolute positions
+\RequirePackage{xspace}         % provide \xspace command
+
+%\RequirePackage{footnpag} % Fußnoten pro Seite numerieren
+
+\RequirePackage{rmreset}  % Fußnoten pro Dokument numerieren (gem. DIN 5008:2001)
+\removefromreset{footnote}{chapter} 
+
+% define some variables
+\def\hawtyp#1{\def\hawtypD{#1}
+              \ifthenelse{{\equal{#1}{Diplomarbeit}}\or{\equal{#1}{Bachelorarbeit}}\or{\equal{#1}{Masterarbeit}}}
+                         {\def\hawAbschlussArb{true}}
+                         {}}
+\def\hawtypD{Laborbericht} 
+\def\hawAbschlussArb{false}
+
+\def\hawauthor#1{\def\hawauthorD{#1}\author{#1}} \def\hawauthorD{Author fehlt}
+\def\hawstudiengang#1{\def\hawstudiengangD{#1}} \def\hawstudiengangD{Studiengang fehlt}
+\def\hawstudienrichtung#1{\def\hawstudienrichtungD{#1}} \def\hawstudienrichtungD{Studienrichtung fehlt}
+\def\hawprof#1{\def\hawprofD{#1}} \def\hawprofD{false}
+\def\hawkoprof#1{\def\hawkoprofD{#1}} \def\hawkoprofD{false}
+\def\hawfachbereich#1{\def\hawfachbereichD{#1}} \def\hawfachbereichD{Fachbereich fehlt}
+\def\hawdepartment#1{\def\hawdepartmentD{#1}} \def\hawdepartmentD{Department fehlt}
+\def\hawstichworte#1{\def\hawstichworteD{#1}} \def\hawstichworteD{Stichworte fehlen}
+
+\def\hawkeywords#1{\def\hawkeywordsD{#1}} \def\hawkeywordsD{Keywords missing}
+\def\hawort#1{\def\hawortD{#1}} \def\hawortD{Hamburg}
+\def\hawlogo#1{\def\hawlogoD{#1}} \def\hawlogoD{false}
+\def\hawkooperation#1{\def\hawkooperationD{#1}} \def\hawkooperationD{false}
+\def\hawdatum#1{\def\hawdatumD{#1}\date{#1}} \def\hawdatumD{\today}
+\def\hawemail#1{\def\hawemailD{\texttt{<}#1\texttt{>}}} \def\hawemailD{false}
+\def\hawEfaculty#1{\def\hawEfacultyD{#1}} \def\hawEfacultyD{Faculty missing}
+\def\hawEdepartment#1{\def\hawEdepartmentD{#1}} \def\hawEdepartmentD{Department missing}
+
+\def\hawtitel#1{\def\hawtitelD{#1}\title{#1}\ifthenelse{\equal{\hawzftitelSetD}{false}}{\def\hawzftitelD{#1}}{}} \def\hawtitelD{Deutscher Titel fehlt}
+\def\hawzftitel#1{\def\hawzftitelD{#1}\def\hawzftitelSetD{true}} \def\hawzftitelD{\hawtitelD} \def\hawzftitelSetD{false}
+\def\hawzftitle#1{\def\hawzftitleD{#1}} \def\hawzftitleD{Englischer Titel fehlt}
+
+
+\def\hawzusammenfassung#1{\def\hawzusammenfassungD{#1}} \def\hawzusammenfassungD{Zusammenfassung fehlt}
+\def\hawabstract#1{\def\hawabstractD{#1}} \def\hawabstractD{Abstract missing}
+
+\definecolor{hawviolett}{rgb}{0.76,0.73,0.98}
+\definecolor{hawblau}{rgb}{0,0,0.62}
+\definecolor{hawcyan}{rgb}{0.62,0.85,1}
+
+\newlength{\hawzflength}
+
+% textpos package configuration
+\def\hawtextpos{%
+\setlength{\TPHorizModule}{1mm}% set resolution to 1mm
+\setlength{\TPVertModule}{\TPHorizModule}%
+\textblockorigin{0mm}{0mm}% start at the top-left corner
+}
+
+% The title page
+\renewcommand{\maketitle}{%
+\hawdeckblatt
+\ifthenelse{\equal{\hawAbschlussArb}{true}}
+	{\hawpruefblatt}
+	{}
+{\parskip=4mm \hawcoverzfblatt}
+}
+
+\newcommand{\hawzfdeutsch}{%
+\noindent\textbf{Thema der \hawtypD}\vspace{\hawzflength}\newline
+\hawzftitelD\vspace{\hawzflength}\vspace{\hawzflength}\newline
+\noindent\textbf{Stichworte}\vspace{\hawzflength}\newline
+\hawstichworteD\vspace{\hawzflength}\vspace{\hawzflength}\newline
+\noindent\textbf{Kurzzusammenfassung}\vspace{\hawzflength}\newline
+\hawzusammenfassungD
+}
+
+\newcommand{\hawzfenglish}{%
+\noindent\textbf{\\Title of the paper}\vspace{\hawzflength}\newline
+\hawzftitleD\vspace{\hawzflength}\vspace{\hawzflength}\newline
+\noindent\textbf{Keywords}\vspace{\hawzflength}\newline
+\hawkeywordsD\vspace{\hawzflength}\vspace{\hawzflength}\newline
+\noindent\textbf{Abstract}\vspace{\hawzflength}\newline
+\hawabstractD
+}
+
+\newcommand{\hawzf}{%
+\setlength{\hawzflength}{0.1cm}
+\vspace{\hawzflength}
+\thispagestyle{empty}
+\ifthenelse{\equal{\hawAbschlussArb}{true}}
+	{\begin{center}
+\textbf{Hochschule f\"ur Angewandte Wissenschaften Hamburg}\\
+\textbf{Studiendepartment \hawdepartmentD\\ Zusammenfassungsblatt zur \hawtypD}
+\end{center}
+\noindent
+Verfasser: \hawauthorD\qquad\hawstudiengangD\qquad\hawstudienrichtungD\\
+Pr\"ufer: \hawprofD
+\ifthenelse{\equal{\hawkoprofD}{false}}{}{\qquad Zweitgutachter: \hawkoprofD}\\
+\ifthenelse{\equal{\hawkooperationD}{false}}{}{Kooperation mit (Firma, Beh\"orde): \hawkooperationD}
+\par
+\noindent\begin{tabular}{lll}
+Ver\"offentlichungshinweise: & Auslage der Arbeit in der Bibliothek: & ja / nein\\
+                             & Auslage des Zusammenfassungsblattes: & ja / nein\\
+\end{tabular}\par
+\noindent\rule{\textwidth}{1pt}
+\par}
+	{} % Keine Abschlussarbeit
+\small
+\setlength{\hawzflength}{0.9ex}
+\noindent\textbf{\hawauthorD}\vspace{\hawzflength}\par
+\hawzfdeutsch
+\ifthenelse{\equal{\hawAbschlussArb}{true}}
+	{\par\vfill\noindent\rule{\textwidth}{1pt}\par\vfill
+\noindent\textbf{\hawauthorD}\vspace{\hawzflength}\par
+\hawzfenglish}
+	{}  % keine Abschlussarbeit -> kein englischer Abstract
+
+\normalsize
+\newpage
+}
+
+% TODO: das Kommando sollte selbständig die top-level Gliederung
+% (chapter oder section, je nach \documentclass) herausfinden und
+% dann auf eine eigene Seite packen.
+\newcommand{\hawversicherung}{%
+\thispagestyle{empty}
+\vfill
+\noindent\emph{Hiermit versichere ich, dass ich die
+vorliegende Arbeit im Sinne der Pr\"u\-fungs\-ord\-nung nach {\S}22(4)
+bzw.\@\xspace {\S}24(4) ohne fremde Hilfe selb\-st\"an\-dig verfasst und
+nur die angegebenen Hilfsmittel benutzt habe.}\par
+\vspace{2cm}\noindent\hawortD, \hawdatumD\quad $\overline{\textrm{\hawauthorD}\hspace{5cm}}$
+}
+
+\newcommand{\hawpruefblatt}{%
+\thispagestyle{empty}
+\hawtextpos
+\vspace*{\fill}
+\begin{center}
+{\LARGE\hawauthorD}\par\vspace{2ex}
+\ifthenelse{\equal{\hawemailD}{false}}{}{\hawemailD\par\vspace{2ex}}
+{\Large\hawtitelD}
+\end{center}
+\vfill
+\vfill
+\noindent
+\ifthenelse{\equal{\hawtypD}{Diplomarbeit}}
+  {Diplomarbeit eingereicht im Rahmen der Diplompr\"ufung\\}
+  {\ifthenelse{\equal{\hawtypD}{Bachelorarbeit}}
+	{Bachelorarbeit eingereicht im Rahmen der Bachelorpr\"ufung\\}
+	{\ifthenelse{\equal{\hawtypD}{Masterarbeit}}
+	{Masterarbeit eingereicht im Rahmen der Masterpr\"ufung\\}}}\\
+im Studiengang \hawstudiengangD\\
+am Studiendepartment \hawdepartmentD\\
+der Fakultät \hawfachbereichD\\
+der Hochschule f\"ur Angewandte Wissenschaften Hamburg\vspace{1.5ex}
+\par\noindent
+Betreuender Pr\"ufer: \hawprofD
+\ifthenelse{\equal{\hawkoprofD}{false}}{}{\newline Zweitgutachter: \hawkoprofD}
+\vspace{1.5ex}
+\par\noindent
+Abgegeben am \hawdatumD
+\newpage
+}
+
+\newcommand{\hawdeckblatt}{%
+  \thispagestyle{empty}
+  \hawtextpos
+  
+  \begin{textblock}{130}(70,100)
+    \begin{minipage}[b][98mm][c]{12cm}
+      \begin{center}
+        \textbf{\Large\hawtypD}\vspace{3ex}
+        
+        \large \hawauthorD
+        \ifthenelse{\equal{\hawemailD}{false}}{}{\hspace{0.75em}\hawemailD}
+        \vspace{3ex}
+        
+        \hawtitelD
+        
+      \end{center}
+    \end{minipage}
+  \end{textblock}
+
+  \begin{textblock}{100}[0,0](30,267)
+    \begin{flushleft}
+      \noindent\textit{Fakultät \hawfachbereichD\\ Studiendepartment \hawdepartmentD}
+    \end{flushleft}
+  \end{textblock}
+
+  \begin{textblock}{100}[1,0](190,267)
+    \ifthenelse{\equal{\hawAbschlussArb}{true}}
+               {\begin{flushright}\noindent\textit{Faculty of \hawEfacultyD\\ Department of \hawEdepartmentD}\end{flushright}}
+               {}
+  \end{textblock}
+  
+  \ifthenelse{\equal{\hawlogoD}{false}}{}{%
+    % HAW Logo
+    \begin{textblock}{25}(150,10)
+      \setlength{\unitlength}{1mm}
+      \begin{picture}(15,14)
+        \multiput(0,2)(0,4){4}{\color{hawcyan}\rule{11mm}{1mm}}
+        \multiput(4,0)(0,4){4}{\color{hawblau}\rule{11mm}{1mm}}
+      \end{picture}
+    \end{textblock}
+    % HAW Name
+    \begin{textblock}{110}(100,30)
+      \fontsize{12}{20}
+      \selectfont
+      \noindent\textsf{\color{hawblau}Hochschule f\"ur Angewandte Wissenschaften Hamburg\\ \textit{Hamburg University of Applied Sciences}}
+    \end{textblock}
+    % violett block (covers the middle third of the page)
+    \begin{textblock}{210}(0,99)
+      \textblockcolor{hawviolett}
+      \vspace*{99mm}\hspace{1cm}
+    \end{textblock}
+  }
+  \hspace{1cm}\newpage
+} % End: \newcommand{\hawdeckblatt}
+
+\newcommand{\hawcoverzfblatt}{%
+\thispagestyle{empty}
+\setlength{\hawzflength}{0ex}
+\hawzfdeutsch
+\rule{0mm}{2ex}
+\hawzfenglish
+\newpage
+}
+
+%
+% Dieser Befehl und \hawzf machen wohl fast das gleiche. Abgleichen
+ % und einen raus!
+%
+\newcommand{\hawallinfoblatt}{%
+\thispagestyle{empty}
+\begin{center}
+\textbf{Hochschule f\"ur Angewandte Wissenschaften Hamburg\\ Fachbereich \hawfachbereichD\\ Zusammenfassungsblatt zur \hawtypD}
+\end{center}
+\rule{\textwidth}{1pt}\\
+\noindent
+Verfasser: \hawauthorD\qquad\hawstudiengangD\qquad\hawstudienrichtungD\\
+Pr\"ufer: \hawprofD
+\ifthenelse{\equal{\hawkoprofD}{false}}{}{\qquad Zweitgutachter: \hawkoprofD}\\
+\ifthenelse{\equal{\hawkooperationD}{false}}{}{Kooperation mit (Firma, Beh\"orde): \hawkooperationD\newline}
+\begin{tabular}{lll}
+Ver\"offentlichungshinweise: & Auslage der Arbeit in der Bibliothek: & ja / nein\\
+& Auslage des Zusammenfassungsblattes: & ja / nein\\
+\end{tabular}
+\par\vspace{1cm}
+{\footnotesize(Datum der Abgabe)\hfill(Unterschrift des Studenten)\hfill(Unterschrift des Pr\"ufers)}\\
+\vfill\rule{\textwidth}{1pt}\newline\vfill
+\setlength{\hawzflength}{0ex}
+\hawzfdeutsch
+\par\vfill\noindent\rule{\textwidth}{1pt}\par\vfill
+\hawzfenglish
+\newpage
+}

@@ -1,0 +1,201 @@
+%
+%  spezieller Style für die Informatik der HAW Hamburg
+%
+% (c) Lutz Behnke <lutz.behnke@informatik.haw-hamburg.de> auf Basis
+% des preamble.tex von Jan Szezny
+%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hawhhcs}[2005/12/01 1.0]
+
+%---------------------------------------------------------------------------------------------------
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+\pdffalse                                              % we are not running PDFLaTeX
+\else
+\pdfoutput=1                                           % we are running PDFLaTeX
+\pdftrue
+\fi
+
+
+\RequirePackage[english,ngerman]{babel}                    % deutsche Trennmuster
+\RequirePackage[T1]{fontenc}                               % EC-Schriften, Trennstellen nach Umlauten
+\RequirePackage[latin1]{inputenc}                          % direkte Umlauteingabe (ä statt "a)
+                                                       % latin1/latin9 für unixoide Systeme
+                                                       % (latin1 ist auch unter Win verwendbar)
+                                                       % ansinew für Windows
+                                                       % applemac Macs
+                                                       % cp850 OS/2
+%---------------------------------------------------------------------------------------------------
+\RequirePackage{cmbright}                                  % serifenlose Schrift als Standard
+                                                       % + alle für TeX benötigten mathematischen
+                                                       %   Schriften einschließlich der AMS-Symbole
+\RequirePackage[scaled=.90]{helvet}                        % skalierte Helvetica als \sfdefault
+\RequirePackage{courier}                                   % Courier als \ttdefault
+%---------------------------------------------------------------------------------------------------
+\RequirePackage[automark]{scrpage2}                        % Anpassung der Kopf- und Fußzeilen
+\RequirePackage[BCOR5mm]{typearea}                         % 
+
+\RequirePackage{xspace}                                    % Korrekter Leerraum nach Befehlsdefinitionen
+\RequirePackage{natbib}                                    % Neuimplementierung des \cite-Kommandos
+\RequirePackage[absolute]{textpos}                         % placing boxes at absolute positions
+\RequirePackage[final]{pdfpages}                           % include pages of external PDF documents
+\RequirePackage{tabularx}                                  % Spaltenbreite bis zur Seitenbreite dehnen
+
+%---------------------------------------------------------------------------------------------------
+\ifpdf
+  %-------------------------------------------------------------------------------------------------
+  \RequirePackage{graphicx}                                % Zur Einbindung von PDF-Bildern
+  \RequirePackage[
+    pdftitle={},
+    pdfauthor={},
+    pdfcreator={},
+    pdfsubject={},
+    pdfkeywords={}]{hyperref}
+  \hypersetup{colorlinks=false,
+    pdfproducer={},
+    bookmarksnumbered,                                 % Inhaltsverzeichnis mit Nummerierung
+    bookmarksopen=false,                               % öffnet das Inhaltsverzeichnis nicht
+    pdfstartview=Fit,                                  % startet mit Ganzseitenanzeige
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    menucolor=black,
+    pagecolor=black,
+    urlcolor=black,
+    plainpages=false,
+    hypertexnames=false
+  }
+  \pdfcompresslevel=9
+  %-------------------------------------------------------------------------------------------------
+\else
+  %-------------------------------------------------------------------------------------------------
+    \RequirePackage{graphicx}
+    \RequirePackage{hyperref}
+  %-------------------------------------------------------------------------------------------------
+\fi
+%---------------------------------------------------------------------------------------------------
+
+%------------------------------
+% Eigene Includes...
+%------------------------------
+\RequirePackage{paralist}
+\RequirePackage{ftcap}
+\RequirePackage{mathpazo}%\RequirePackage[expert]{lucidabr}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{dcolumn}
+\RequirePackage{units}
+\RequirePackage{rotating}
+\RequirePackage{colortbl}
+\RequirePackage{listings}
+\RequirePackage{html}
+\newcommand{\urlref}[2]{\htmladdnormallinkfoot{#1}{#2}}
+
+% Die Adobe Postscrip Fonts sind besser f\"ur pdf geeigent.
+% Sie k\"onnen aber auch f\"ur die normale Druckausgabe verwendet werden.
+\RequirePackage{times}              % Times Font
+\RequirePackage{mathptmx}           % use Times for math mode
+\RequirePackage{helvet}             % Helvetica as sans serif
+
+\RequirePackage{haw}                % Layout für Titelblatt
+% Fachbereich, Department und Studiengang (de)
+\hawfachbereich{Technik und Informatik}  % der name des Befehls ist geblieben, 
+                                         % aber dies ist nicht der Fachbereich 
+                                         % sondern die Fakultät
+\hawdepartment{Informatik}
+\hawstudiengang{Master Informatik}
+\hawstudienrichtung{Verteilte Systeme}
+
+% Fachbereich, Department und Studiengang (en)
+\hawEfaculty{Engineering and Computer Science}
+\hawEdepartment{Computer Science}
+
+
+%---------------------------------------------------------------------------------------------------
+% Inhaltsverzeichnis und Abschnittnummerierung
+%---------------------------------------------------------------------------------------------------
+\setcounter{secnumdepth}{3}   % Ich habe recht kurze Kapitel. Die sollen nicht durchnummeriert sein.
+\setcounter{tocdepth}{3}
+
+
+%---------------------------------------------------------------------------------------------------
+% Abbildungsverzeichnis
+%---------------------------------------------------------------------------------------------------
+\graphicspath{{graphics/}}
+
+
+%---------------------------------------------------------------------------------------------------
+% Kopf- und Fußzeilen
+%---------------------------------------------------------------------------------------------------
+\pagestyle{scrheadings}
+\clearscrheadings
+\clearscrplain
+\clearscrheadfoot
+\ohead{\pagemark}
+\ihead{\headmark}
+
+
+%---------------------------------------------------------------------------------------------------
+% Ident
+%---------------------------------------------------------------------------------------------------
+\newcommand{\ident}[1]{                             % ein Parameter
+        \small\ttfamily#1\sffamily\normalsize
+}
+%---------------------------------------------------------------------------------------------------
+
+
+%---------------------------------------------------------------------------------------------------
+% Kürzel
+%---------------------------------------------------------------------------------------------------
+% Hier sind Makros definiert, die die Eingabe erleichtern sollen. Für korrekte Abstände zwischen
+% "z.B." sorgt also ein "z.\,B." (LaTeX-Befehl für kleineren Abstand)
+% Schneller schreibt sich das durch das Makro "\zB":
+
+% \newcommand{\zB}{z.\,B.\ }
+
+% Hier ist der Rest aber mit dem Paket xspace verwirklicht. Damit kann
+% man bei Bedarf den Abstand mit "\hspace" exakt eingeben. Dann zeigt
+% LaTeX keine Toleranz bei den Abkürzungen und macht eben exakt das
+% untenstehende. 
+
+\newcommand{\vgl}{vgl.\@\xspace} 
+\newcommand{\abb}{Abb.\@\xspace} 
+\newcommand{\zB}{z.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]B.\@\xspace}
+\newcommand{\bzw}{bzw.\@\xspace}
+\newcommand{\dahe}{d.\nolinebreak[4]\hspace{0.125em}h.\nolinebreak[4]\@\xspace}
+\newcommand{\etc}{etc.\@\xspace}
+\newcommand{\bzgl}{bzgl.\@\xspace}
+\newcommand{\so}{s.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]o.\@\xspace}
+\newcommand{\iA}{i.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]A.\@\xspace}
+\newcommand{\sa}{s.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]a.\@\xspace}
+\newcommand{\su}{s.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]u.\@\xspace}
+\newcommand{\ua}{u.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]a.\@\xspace}
+\newcommand{\og}{o.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]g.\@\xspace}
+
+
+\newcommand{\HAW}{Hochschule für Angewandte Wissenschaften Hamburg\xspace}
+\newcommand{\GNU}{GNU\xspace}
+\newcommand{\GPL}{\GNU Public License\xspace}
+
+\newcommand{\ACM}{ACM\xspace}
+\newcommand{\PDA}{PDA\xspace}
+
+
+%---------------------------------------------------------------------------------------------------
+% Trennung
+%---------------------------------------------------------------------------------------------------
+\hyphenation{Web-ap-pli-ka-tion Web-ap-pli-ka-tio-nen Web-an-wen-dung Web-an-wen-dung-en My-SQL Kon-text-in-for-ma-ti-onen}
+\hyphenation{eWallet eCash}
+
+%---------------------------------------------------------------------------------------------------
+% Anpassung der Parameter, die TeX bei der Berechnung der Zeilenumbrüche verwendet:
+%---------------------------------------------------------------------------------------------------
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz \hfuzz
+\raggedbottom
+
