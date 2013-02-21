@@ -17,24 +17,41 @@ LaTeX
 
 You can find the german documentation on how to use them in the file 
 	latex/haw_style.tex
-for latex style. An example with a working directory structure is also availiable in
+for latex style. An example with a working directory structure is also
+availiable in
 	latex/sample_doc/sample_doc.tex
 
-The format ist basically split in two parts: the actual style and a wrapping style for aeach
-department. Take a look at 
+The format ist basically split in two parts: the actual style and a wrapping
+style for aeach department. Take a look at 
 	latex/texmf/latex/hawhhcs.sty
 for the example for the department of computer science.
 
 Open Document Format
 --------------------
 
-This is currently in a "pre-alpha proof of concept prototype" state, and likely to stay there.
+This is currently in a "pre-alpha proof of concept prototype" state, and likely
+to stay there.
 
 License
 =======
 
-The code is made availiable under the Creative Commons Attribution Share Alike License (cc-by-sa).
-You can find the full License text under [http://creativecommons.org/licenses/by-sa/3.0/]
+This code is made availiable under the Creative Commons Attribution Share Alike
+License (cc-by-sa). You can find the full License text under 
+[http://creativecommons.org/licenses/by-sa/3.0/]
 
 
-This git repository also contains copies of a number of packages by other auhtors, as a convienience for installing the package. These packages are copyright by their authors and are distributed under thier respective licenses.
+This git repository also contains copies of a number of packages by other
+authors, as a convienience for installing the package. These packages are 
+copyright by their authors and are distributed under thier respective licenses.
+
+Contributors
+============
+Initial Author:
+Copyright 2005 Dirk Jagdmann <doj@cubic.org> with ideas from Michael Knop
+
+Maintainer:
+Copyright 2006-2013 Lutz Behnke <lutz.behnke@gmx.de>
+
+Additional Input:
+ Lorenz Barnkow
+
